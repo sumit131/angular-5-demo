@@ -15,6 +15,14 @@ import { trigger, style, transition, animate, keyframes, query, stagger } from '
             style({opacity: .5, transform: 'transformY(35px)', offset: .3}),
             style({opacity: 1, transform: 'transformY(0)', offset: 1}),
           ]))
+        ]), {optional: true}),
+
+        query(':leave', stagger('300ms', [
+          animate('.6s ease-in', keyframes([
+            style({opacity: 1, transform: 'transformY(0)', offset: 0}),
+            style({opacity: .5, transform: 'transformY(35px)', offset: .3}),
+            style({opacity: 0, transform: 'transformY(-75%)', offset: 1}),
+          ]))
         ]), {optional: true})
       ])
     ])
@@ -33,9 +41,13 @@ export class HomeComponent implements OnInit {
     this.itemCount = this.goals.length;
   }
 
-  addItem(){
+  addItem() {
     this.goals.push(this.goalText);
     this.goalText = '';
     this.itemCount = this.goals.length;
+  }
+
+  removeItem(i) {
+    this.goals.splice(i, 1);
   }
 }
